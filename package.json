@@ -36,6 +36,8 @@
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.4",
     "react-wrap-balancer": "^0.3.0",
+    "request-promise": "^4.2.6",
+    "stripe": "^11.13.0",
     "typescript": "4.9.4",
     "use-debounce": "^9.0.3"
   },

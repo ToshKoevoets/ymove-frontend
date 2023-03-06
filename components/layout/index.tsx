@@ -17,6 +17,7 @@ export default function Layout({
     title?: string;
     description?: string;
     image?: string;
+    domain? :string;
   };
   children: ReactNode;
 }) {
