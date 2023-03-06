@@ -1,5 +1,5 @@
 
-export default function Checkout(props: any) {
+export default function Openstad(props: any) {
 
   return (
     <div>

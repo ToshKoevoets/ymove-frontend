@@ -180,7 +180,7 @@ export default async function getServerSideProps(context: any) {
         id: site.id,
         domain: site.domain,
         name: site.name,
-        homePageTyoe: site.config.cms.homePageType,
+        homePageType: site.config.cms.homePageType,
         config: {
           /** IMPORTANT THIS SHOULD ONLY BE PUBLIC / SAFE DATA<**/
           cms: site.config.cms,

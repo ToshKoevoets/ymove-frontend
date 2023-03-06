@@ -22,6 +22,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "services/site.js", "services/site.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "services/site.js", "services/site.js", "components/site/components/hero-with-app.jsxh-app.jsx", "components/site/waiting.jsx", "components/site/waiting.jsx", "components/site/components/product-button.jsx", "components/site/components/product-button.jsx", "services/resource.js"],
   "exclude": ["node_modules"]
 }
