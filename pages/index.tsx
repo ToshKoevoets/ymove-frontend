@@ -1,11 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Layout from "@/components/layout";
-import Balancer from "react-wrap-balancer";
-import { DEPLOY_URL, FADE_DOWN_ANIMATION_VARIANTS } from "@/lib/constants";
-import WebVitals from "@/components/home/web-vitals";
-import Image from "next/image";
-import getServerSideProps from "../services/site";
-
 import Ymove from "@/components/site/ymove";
 import WaitingList from "@/components/site/waiting";
 import Landing from "@/components/site/landing";
@@ -30,7 +24,7 @@ export default function Home(props:any) {
       component = <WaitingList />;
       break;
     default:
-      component = <div />;
+      component = <Landing />;
   }
 
   return (
@@ -41,10 +35,5 @@ export default function Home(props:any) {
     </Layout>
   );
 }
-
-export {
-  getServerSideProps
-}
-
 
 

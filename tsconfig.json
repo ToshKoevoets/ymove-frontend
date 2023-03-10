@@ -22,6 +22,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "services/site.js", "services/site.js", "components/site/components/hero-with-app.jsxh-app.jsx", "components/site/waiting.jsx", "components/site/waiting.jsx", "components/site/components/product-button.jsx", "components/site/components/product-button.jsx", "services/resource.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "services/site.js", "services/site.js", "components/site/components/hero-with-app.jsxh-app.jsx", "components/site/waiting.jsx", "components/site/waiting.jsx", "components/site/components/product-button.jsx", "components/site/components/product-button.jsx", "services/resource.js", "pages/api/validateJwt.jsJwt.pages/api/validateJwt.jslidateJwt.js", "components/site/landing.jsx", "components/site/landing.jsx", "components/layout/dashboard.jsx", "components/layout/dashboard.jsx"],
   "exclude": ["node_modules"]
 }
