@@ -1,10 +1,6 @@
-
-const Step1 
-
-
+import React from "react";
 
 export default function SubmissionCheckList(props: any) {
-
   return (
     <div>
       <div className="checklist-container">

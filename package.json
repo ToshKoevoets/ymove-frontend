@@ -28,6 +28,10 @@
     "eslint-config-next": "13.1.1",
     "focus-trap-react": "^10.0.2",
     "framer-motion": "^8.4.2",
+    "http-proxy": "^1.18.1",
+    "http-proxy-middleware": "^2.0.6",
+    "iron-session": "^6.3.1",
+    "ka-table": "^7.12.1",
     "lucide-react": "0.105.0-alpha.4",
     "ms": "^2.1.3",
     "next": "13.1.1",
@@ -38,6 +42,7 @@
     "react-wrap-balancer": "^0.3.0",
     "request-promise": "^4.2.6",
     "stripe": "^11.13.0",
+    "swr": "^2.1.0",
     "typescript": "4.9.4",
     "use-debounce": "^9.0.3"
   },

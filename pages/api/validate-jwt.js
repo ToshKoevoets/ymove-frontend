@@ -1,15 +1,16 @@
 import { withIronSessionApiRoute } from "iron-session/next";
 import { ironOptions } from "lib/config";
+import { getSite } from '../../services/sites';
+const apiUrl = process.env.API;
 
-export default withIronSessionApiRoute(loginRoute, ironOptions);
 
 async function validateJwt(req, res) {
-  const jwt = req.nextUrl.searchParams.get('jwt');
-  const site = await fetch('/api/site');
+  const jwt = req.query.jwt;
+  const site = await getSite(req);
+
 
   const siteId = site.id;
   const url = `${apiUrl}/oauth/site/${siteId}/me`;
-
   
   if (jwt) {
     const userResponse = await fetch(url, {
@@ -24,12 +25,17 @@ async function validateJwt(req, res) {
 
     const userData = await userResponse.json();
 
+    console.log('userData', userData)
+
+    req.session.jwt = jwt;
+    
     req.session.user = {
       id: userData.id,
       role: userData.role,
       email: userData.email,
       firstName: userData.firstName,
       lastName: userData.lastName,
+      jwt: jwt
     };
     
     await req.session.save();
@@ -41,3 +47,5 @@ async function validateJwt(req, res) {
   
   res.redirect(307, redirectUrl)
 }
+
+export default withIronSessionApiRoute(validateJwt, ironOptions);

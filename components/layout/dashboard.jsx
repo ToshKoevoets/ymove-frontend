@@ -1,19 +1,28 @@
-import { FADE_IN_ANIMATION_SETTINGS } from "@/lib/constants";
-import { AnimatePresence, motion } from "framer-motion";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ReactNode } from "react";
 import useScroll from "@/lib/hooks/use-scroll";
 import Meta from "./meta";
-import { useSignInModal } from "./sign-in-modal";
-import UserDropdown from "./user-dropdown";
+import { cookies } from 'next/headers';
+import useSWR from 'swr';
 
-export default function Layout({
-  meta,
-  site,
-  children,
-}) {
+
+
+export default function Layout(props) {
   const scrolled = useScroll(50);
+
+  const {
+    meta,
+    site,
+    user,
+    children
+  }  = props;
+
+  console.log('user propspropspropsprops', props)
+
+  if (!user) {
+    return '<div>Auth Reuquired</div>';
+  }
 
   return (
     <>
@@ -29,11 +38,28 @@ export default function Layout({
             </Link>
 
             {/* User signed in state. Account dropdown on screens > 576px*/}
-            <div className="dropdown nav d-none d-sm-block order-lg-3"><a className="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false"><img className="border rounded-circle" src="assets/img/avatar/01.jpg" width={48} alt="Isabella Bocouse" />
-              <div className="ps-2">
-                <div className="fs-xs lh-1 opacity-60">Hello,</div>
-                <div className="fs-sm dropdown-toggle">Isabella</div>
-              </div></a>
+            <div className="dropdown nav d-none d-sm-block order-lg-3">
+              <a className="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                {user.profileImage ? 
+                  <img className="border rounded-circle" src="assets/img/avatar/01.jpg" width={48} alt={user.profileImage} />
+                  :
+                  <span className="border rounded-circle" style={{
+                    height: '48px',
+                    width: '48px',
+                    color:'var(--ar-primary)',
+                    textAlign: 'center',
+                    lineHeight: 1,
+                    lineHeight: '48px',
+                    fontWeight: 'bold'
+                  }}>
+                    {user.firstName ? user.firstName.charAt(0) : ''}
+                  </span>
+                }
+                <div className="ps-2">
+                  <div className="fs-xs lh-1 opacity-60">Hello,</div>
+                  <div className="fs-sm dropdown-toggle">{user.firstName}</div>
+                </div>
+              </a>
               <div className="dropdown-menu dropdown-menu-end my-1">
                 <h6 className="dropdown-header fs-xs fw-medium text-muted text-uppercase pb-1">
                   Site   

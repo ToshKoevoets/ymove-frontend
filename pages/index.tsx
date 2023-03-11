@@ -12,24 +12,28 @@ export default function Home(props:any) {
 
   switch (props.homePageType) {
     case 'Ymove':
-      component = <Ymove />;
+      component = <Ymove {...props} />;
       break;
     case 'Landing':
-      component = <Landing />;
+      component = <Landing  {...props} />;
       break;
     case 'Openstad':
-      component = <Openstad />;
+      component = <Openstad  {...props} />;
       break;
+ /*   case 'LinkList':
+      component = <LinkList  {...props} />*/
     case 'WaitingList':
-      component = <WaitingList />;
+      component = <WaitingList  {...props} />;
       break;
     default:
-      component = <Landing />;
+      component = <Landing  {...props} />;
   }
+
+  console.log('site', props.site)
 
   return (
     <Layout meta={{
-      domain: props.site?.domain,
+      domain: props.site?.title,
     }}>
       {component}
     </Layout>
