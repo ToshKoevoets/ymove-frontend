@@ -3,12 +3,8 @@ import DashboardLayout from "@/components/layout/dashboard";
 //import Overview from "@/components/overview";
 import { DataType, Table } from 'ka-table';
 import { Column } from 'ka-table/models';
-import { FilteringMode, SortDirection } from 'ka-table/enums';
-import { CSVLink } from 'react-csv';
-
 import useSWR from 'swr';
 const apiUrl = process.env.API;
-
 
 const columns: Column[] = Array(15).fill(undefined).map(
   (_, index) => ({
@@ -42,8 +38,6 @@ const dataArray = Array(30).fill(undefined).map(
 
 const usersFetcher = async (args:any) => {
   
-  console.log('argsgsgsg', args)
-
   const dataResponse = await fetch(args.url, {
     method: 'GET',
     headers: {
@@ -84,18 +78,6 @@ export default function Dashboard(props:any) {
       title: "Dashboard",
     }}>
       <h1>Users: {props.site.title}</h1>
-      
-        {usersResponse.data && <CSVLink
-          data={usersResponse.data}
-          headersBKP={usersResponse.data.map(c => ({ id: c.id!, key: c.key! }))}
-          filename='users.data.csv'
-          enclosingCharacter={''}
-          separator={';'}>
-          Download .csv
-        </CSVLink>
-     }
-
-
       <div className="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4">
         {usersResponse.error && <div>Failed to load users..</div>}
         {!usersResponse.data && <div>Loading users...</div>}
@@ -111,7 +93,6 @@ export default function Dashboard(props:any) {
           ]}
           data={usersResponse.data}
           rowKeyField={'id'}
-          filteringMode={FilteringMode.FilterRow}
           childComponents={{
             headCellContent: {
               content: ({ column }) => {

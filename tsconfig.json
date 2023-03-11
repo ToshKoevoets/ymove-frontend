@@ -22,6 +22,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "services/site.js", "services/site.js", "components/site/components/hero-with-app.jsxh-app.jsx", "components/site/waiting.jsx", "components/site/waiting.jsx", "components/site/components/product-button.jsx", "components/site/components/product-button.jsx", "services/resource.js", "pages/api/validateJwt.jsJwt.pages/api/validateJwt.jslidateJwt.js", "components/site/landing.jsx", "components/site/landing.jsx", "components/layout/dashboard.jsx", "components/layout/dashboard.jsx", "pages/api/login.js", "pages/api/login.js", "pages/_app.jsx", "pages/_app.jsx", "pages/api/site/[...all].js", "pages/api/site/[...all].js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "services/site.js", "services/site.js", "components/site/components/hero-with-app.jsxh-app.jsx", "components/site/waiting.jsx", "components/site/waiting.jsx", "components/site/components/product-button.jsx", "components/site/components/product-button.jsx", "services/resource.js", "pages/api/validateJwt.jsJwt.pages/api/validateJwt.jslidateJwt.js", "components/site/landing.jsx", "components/site/landing.jsx", "components/layout/dashboard.jsx", "components/layout/dashboard.jsx", "pages/api/login.js", "pages/api/login.js", "pages/_app.jsx", "pages/_app.jsx", "pages/api/site/[...all].js", "pages/api/site/[...all].js", "pages/dashboard/app-settings.tsz", "pages/dashboard/app-settings.tsz"],
   "exclude": ["node_modules"]
 }

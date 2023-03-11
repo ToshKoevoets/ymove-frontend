@@ -1,13 +1,6 @@
 // pages/api/proxy/[...slug].js
 import httpProxy from "http-proxy";
 
-import { createProxyMiddleware } from "http-proxy-middleware"; // @2.0.6
-
-const proxy = createProxyMiddleware({
-  target: process.env.API,
-  secure: false,
-  //pathRewrite: { "^/api/proxy": "" }, // remove `/api/proxy` prefix
-});
 
 export const config = {
   api: {

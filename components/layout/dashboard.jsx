@@ -21,7 +21,7 @@ export default function Layout(props) {
   console.log('user propspropspropsprops', props)
 
   if (!user) {
-    return '<div>Auth Reuquired</div>';
+    return <div>Auth Reuquired</div>;
   }
 
   return (
@@ -136,27 +136,31 @@ export default function Layout(props) {
                   <div className="offcanvas-body">
                     <nav className="nav flex-column pb-2 pb-lg-4 mb-3">
                       <h4 className="fs-xs fw-medium text-muted text-uppercase pb-1 mb-2">Dashboard</h4>
-                      <a className="nav-link fw-semibold py-2 px-0" href="/dashboard">
+                      <Link className="nav-link fw-semibold py-2 px-0" href="/dashboard">
                         <i className="ai-user-check fs-5 opacity-60 me-2" />Overview
-                      </a>
-                      <a className="nav-link fw-semibold py-2 px-0" href="/dashboard/events">
+                      </Link>
+                      <Link className="nav-link fw-semibold py-2 px-0" href="/dashboard/events">
                         <i className="ai-user-check fs-5 opacity-60 me-2" />Activity
-                      </a>
-                      <a className="nav-link fw-semibold py-2 px-0" href="/dashboard/actions">
+                      </Link>
+                      <Link className="nav-link fw-semibold py-2 px-0" href="/dashboard/actions">
                         <i className="ai-user-check fs-5 opacity-60 me-2" />Actions
-                      </a>
-                      <a className="nav-link fw-semibold py-2 px-0" href="/dashboard/site-settings">
-                        <i className="ai-user-check fs-5 opacity-60 me-2" />Site Settings
-                      </a>
-                      <a className="nav-link fw-semibold py-2 px-0" href="/dashboard/chat">
+                      </Link>
+                      <Link className="nav-link fw-semibold py-2 px-0" href="/dashboard/site-settings">
+                        <i className="ai-settings fs-5 opacity-60 me-2" />Site Settings
+                      </Link>
+                      
+                      <Link className="nav-link fw-semibold py-2 px-0" href="/dashboard/app-settings">
+                        <i className="ai-settings fs-5 opacity-60 me-2" />App Settings
+                      </Link>    
+                      <Link className="nav-link fw-semibold py-2 px-0" href="/dashboard/chat">
                         <i className="ai-user-check fs-5 opacity-60 me-2" />Chat
-                      </a>  
-                      <a className="nav-link fw-semibold py-2 px-0" href="/dashboard/app-settings">
-                        <i className="ai-user-check fs-5 opacity-60 me-2" />App Settings
-                      </a>     
-                      <a className="nav-link fw-semibold py-2 px-0" href="/dashboard/app-settings">
+                      </Link>   
+                      <Link className="nav-link fw-semibold py-2 px-0" href="/dashboard/blog">
+                        <i className="ai-quotes fs-5 opacity-60 me-2" />Blog
+                      </Link> 
+                      <Link className="nav-link fw-semibold py-2 px-0" href="/dashboard/app-settings">
                         <i className="ai-user-check fs-5 opacity-60 me-2" />Subscriptions & Products
-                      </a>   
+                      </Link>   
                     </nav>
                     <nav className="nav flex-column pb-2 pb-lg-4 mb-1">
                       <h4 className="fs-xs fw-medium text-muted text-uppercase pb-1 mb-2">Account</h4>
