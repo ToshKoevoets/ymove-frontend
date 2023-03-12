@@ -59,8 +59,6 @@ export default function Dashboard(props:any) {
   const site: any = props.site;
   const user:any = props.user;
 
-
-
   let usersResponse = useSWR({
     url: `/api/site/${site.id}/user`, 
     jwt: user.jwt
@@ -80,48 +78,73 @@ export default function Dashboard(props:any) {
     <DashboardLayout user={props.user} user={props.user} site={props.site}  meta={{
       title: "Dashboard",
     }}>
-      <h1>Users: {props.site.title}</h1>
-      
-      {Array.isArray(usersResponse.data) && <CSVLink
-          data={usersResponse.data}
-        headersBKP={Array.isArray(usersResponse.data) ? usersResponse.data.map(c => ({ id: c.id!, key: c.key! })) : []}
-          filename='users.data.csv'
-          enclosingCharacter={''}
-          separator={';'}>
-          Download .csv
-        </CSVLink>
-     }
-
-
-      <div className="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4">
-        {usersResponse.error && <div>Failed to load users..</div>}
-        {!usersResponse.data && <div>Loading users...</div>}
-
-        {Array.isArray(usersResponse.data)  && <Table
-          columns={[
-            { key: 'id', field: 'id', title: 'Column 1', dataType: DataType.String },
-            { key: 'firstName', field: 'firstName', title: 'First Name', dataType: DataType.String },
-            { key: 'lastName', field: 'lastName', title: 'Last Name', dataType: DataType.String },
-            { key: 'email', title: 'Email', dataType: DataType.String },
-            { key: 'column4', title: 'Column 4', dataType: DataType.String },
-            { key: ':delete', width: 70, style: { textAlign: 'center' } },
-          ]}
-          data={usersResponse.data}
-          rowKeyField={'id'}
-          filteringMode={FilteringMode.FilterRow}
-          childComponents={{
-            headCellContent: {
-              content: ({ column }) => {
-                return (
-                  <>
-                    <span>{column.title}</span>
-                  </>
-                );
-              }
-            }
-          }}
-        />}
-      </div>
+      <h1>Overview</h1>
+      <section className="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+        <div className="card-body">
+          <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3"><i class="ai-card text-primary lead pe-1 me-2"></i>
+            <h2 class="h4 mb-0">Statistics </h2>
+          </div>
+          <div className="row g-3 g-xl-4">
+            <div className="col-md-4 col-sm-6">
+              <div className="h-100 bg-secondary rounded-3 text-center p-4">
+                <h2 className="h6 pb-2 mb-1"> Active Users</h2>
+                <div className="h2 text-primary mb-2">430</div>
+              </div>
+            </div>
+            <div className="col-md-4 col-sm-6">
+              <div className="h-100 bg-secondary rounded-3 text-center p-4">
+                <h2 className="h6 pb-2 mb-1"> Stripe Subscriptions</h2>
+                <div className="h2 text-primary mb-2">30</div>
+                <p className="fs-sm text-muted mb-0">To be paid on 8/15/2022</p>
+              </div>
+            </div>
+            <div className="col-md-4 col-sm-12">
+              <div className="h-100 bg-secondary rounded-3 text-center p-4">
+                <h2 className="h6 pb-2 mb-1">Apple Subscriptions</h2>
+                <div className="h2 text-primary mb-2">40</div>
+                <p className="fs-sm text-muted mb-0">Based on list price</p>
+              </div>
+            </div>
+            <div className="col-md-4 col-sm-12">
+              <div className="h-100 bg-secondary rounded-3 text-center p-4">
+                <h2 className="h6 pb-2 mb-1">Google Subscriptions</h2>
+                <div className="h2 text-primary mb-2">230</div>
+                <p className="fs-sm text-muted mb-0">Based on list price</p>
+              </div>
+            </div>
+            <div className="col-md-4 col-sm-12">
+              <div className="h-100 bg-secondary rounded-3 text-center p-4">
+                <h2 className="h6 pb-2 mb-1">Products Purchased</h2>
+                <div className="h2 text-primary mb-2">230</div>
+                <p className="fs-sm text-muted mb-0">Based on list price</p>
+              </div>
+            </div>
+            <div className="col-md-4 col-sm-12">
+              <div className="h-100 bg-secondary rounded-3 text-center p-4">
+                <h2 className="h6 pb-2 mb-1">Manual Active Users</h2>
+                <div className="h2 text-primary mb-2">230</div>
+                <p className="fs-sm text-muted mb-0">Based on list price</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+        <div className="card-body">
+          <div className="d-flex align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3"><i className="ai-cart text-primary lead pe-1 me-2" />
+            <h2 className="h4 mb-0">Newest Users</h2><a className="btn btn-sm btn-secondary ms-auto" href="/dashboard/users">View all</a>
+          </div>
+        </div>
+      </section>
+      {/* Address*/}
+      <section className="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+        <div className="card-body">
+          <div className="d-flex align-items-center mt-sm-n1 pb-4 mb-1 mb-lg-2"><i className="ai-map-pin text-primary lead pe-1 me-2" />
+            <h2 className="h4 mb-0">Latest Activity</h2>
+          </div>
+          
+        </div>
+      </section>
     </DashboardLayout>    
   );
 }

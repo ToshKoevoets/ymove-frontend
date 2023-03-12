@@ -40,6 +40,7 @@ const saveSiteConfig = async (site, jwt, key, newData) => {
   return data;
 }
 
+
 /*
  <Form schema={{
             "properties": {
@@ -151,6 +152,7 @@ const uiSchema = {
 
 export default function Dashboard(props) {
   const [formData, setFormData] = React.useState(null);
+  const [activeAccord, setAccord] = useState('');
 
   return (
     <DashboardLayout user={props.user} site={props.site} meta={{
@@ -168,30 +170,47 @@ export default function Dashboard(props) {
             <h2 className="h4 mb-0">General Styling</h2>
           </div>
 
-          <Form 
-            onSubmit={async ({ formData }, e) => {
-              await saveSiteConfig(props.site, props.user.jwt, 'styling', formData);
-            }}
-            formData={props.site.config.styling}
-            uiSchema={uiSchema} 
-            schema={{
-              "properties": {
-                "logo": {
-                  "type": "string",
-                  "title": "Logo",
-                },
-                "accentColor": {
-                  "type": "string",
-                  "title": "Brand Color"
-                },
-              }
-            }} 
-            validator={validator} 
-            onChange={(e) => {
-              console.log('e.formData', e.formData)
-            //  setFormData(e.formData);
-            }}
-          />
+          <div className="accordion" id="">
+          <div className="accordion-item">
+            <h3 className="accordion-header" id="headingOne">
+              <button onClick={() => {
+                setAccord(activeAccord !== 'main' ? 'main' : '');
+              }} className={`accordion-button  ${activeAccord !== 'main' ? 'collapsed' : ''}`} type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Main
+              </button>
+            </h3>
+            <div className={`accordion-collapse collapse ${activeAccord === 'main' ? 'show' : ''}`} id="collapseOne" aria-labelledby="headingOne" data-bs-parent="#accordionDefault">
+              <div className="accordion-body fs-sm">
+                <Form
+                  onSubmit={async ({ formData }, e) => {
+                    await saveSiteConfig(props.site, props.user.jwt, 'styling', formData);
+                  }}
+                  formData={props.site.config.styling}
+                  uiSchema={uiSchema}
+                  schema={{
+                    "properties": {
+                      "logo": {
+                        "type": "string",
+                        "title": "Logo",
+                      },
+                      "accentColor": {
+                        "type": "string",
+                        "title": "Brand Color"
+                      },
+                    }
+                  }}
+                  validator={validator}
+                  onChange={(e) => {
+                    console.log('e.formData', e.formData)
+                    //  setFormData(e.formData);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          </div>
+
         </div>
       </section>
       <section className="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
@@ -200,6 +219,10 @@ export default function Dashboard(props) {
           <div className="d-flex align-items-center pb-4 mt-sm-n1 mb-0 mb-lg-1 mb-xl-3">
             <i className="ai-map-pin text-primary lead pe-1 me-2"></i>
             <h2 className="h4 mb-0">Landing page</h2>
+
+
+            <a className="btn btn-sm btn-secondary ms-auto" href={props.site.cms.url} target="_blank" rel="noreferrer">View Live</a>
+
           </div>
           
           <LandingPageSettings {...props} />
