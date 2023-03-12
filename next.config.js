@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   env: {
-    API: 'https://www.api.makkie.baboom.nl'
+    API: 'http://localhost:8111', //process.env.API
   },
   async redirects() {
     return [

@@ -1,8 +1,13 @@
 import { getSite } from '../../services/sites';
+import { withIronSessionApiRoute } from "iron-session/next";
+import { ironOptions } from "lib/config";
 
-export default async function handler(req:any, res:any) {
+async function handler(req:any, res:any) {
   if (req.method === 'GET') {
     const site:any = await getSite(req);
+    const user = req.session.user ? req.session.user : null;;
+
+    const moderator = user && (user.role === 'admin' || user.role === 'moderator');
 
     if (!site) {
       return {
@@ -14,8 +19,17 @@ export default async function handler(req:any, res:any) {
       id: site.id,
       title: site.title,
       cms: site.config?.cms,
-      info: site.config?.info ? site.config?.info : {},
-      app: site.config?.app,
+      config: moderator ? {
+        styling: site.config?.styling ? site.config?.styling : {},
+        landing: site.config?.landing ? site.config?.landing : {},
+        app: site.config?.app ? site.config?.app : {},
+        marketing: site.config?.marketing ? site.config?.marketing : {},
+        public: site.config?.public ? site.config?.public : {},
+      } : {
+        styling: site.config?.styling ? site.config?.styling : {},
+          landing: site.config?.landing ? site.config?.landing : {},
+        public: site.config?.public ? site.config?.public : {},
+      }
     });
   } else {
     res.status(404).json({
@@ -23,3 +37,5 @@ export default async function handler(req:any, res:any) {
     });
   }
 }
+
+export default withIronSessionApiRoute(handler, ironOptions);

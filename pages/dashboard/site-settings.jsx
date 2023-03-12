@@ -17,9 +17,7 @@ import React, { useState } from "react";
 // Register the plugins
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
 
-const saveSite = async (site, jwt, key, newData) => {
-
-  console.log('site', site)
+const saveSiteConfig = async (site, jwt, key, newData) => {
   const dataResponse = await fetch(`/api/site/${site.id}`, {
     method: 'PUT',
     headers: {
@@ -75,8 +73,6 @@ const saveSite = async (site, jwt, key, newData) => {
           }} validator={validator} />
 */
 
-
-
 function ImageUploadField (props) {
   const [files, setFiles] = useState([])
 
@@ -88,7 +84,6 @@ function ImageUploadField (props) {
         onupdatefiles={fileItems => {
           // Set currently active file objects to this.state
           const files = fileItems.map(fileItem => fileItem.file);
-          
           setFiles(files)
         }}
         oninit={() => {
@@ -168,32 +163,30 @@ export default function Dashboard(props) {
       
       <section className="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
         <div className="card-body">
-
           <div className="d-flex align-items-center pb-4 mt-sm-n1 mb-0 mb-lg-1 mb-xl-3">
             <i className="ai-map-pin text-primary lead pe-1 me-2"></i>
             <h2 className="h4 mb-0">General Styling</h2>
           </div>
 
-          <Form onSubmit={({ formData }, e) => {
-            console.log('Data submitted: ', formData);
-
-
-            saveSite(props.site, props.user.jwt, 'styling', formData);
-
-          }} uiSchema={uiSchema} schema={{
-            "properties": {
-              "logo": {
-                "type": "string",
-                "title": "Logo",
-              },
-              "accentColor": {
-                "type": "string",
-                "title": "Brand Color"
-              },
-            }
-          }} validator={validator} 
-
-          
+          <Form 
+            onSubmit={async ({ formData }, e) => {
+              await saveSiteConfig(props.site, props.user.jwt, 'styling', formData);
+            }}
+            formData={props.site.config.styling}
+            uiSchema={uiSchema} 
+            schema={{
+              "properties": {
+                "logo": {
+                  "type": "string",
+                  "title": "Logo",
+                },
+                "accentColor": {
+                  "type": "string",
+                  "title": "Brand Color"
+                },
+              }
+            }} 
+            validator={validator} 
             onChange={(e) => {
               console.log('e.formData', e.formData)
             //  setFormData(e.formData);
@@ -209,7 +202,7 @@ export default function Dashboard(props) {
             <h2 className="h4 mb-0">Landing page</h2>
           </div>
           
-          <LandingPageSettings />
+          <LandingPageSettings {...props} />
         </div>
       </section>
     </DashboardLayout>
@@ -217,7 +210,7 @@ export default function Dashboard(props) {
 }
 
 
-const LandingPageSettings = () =>{
+const LandingPageSettings = (props) =>{
   const [activeAccord, setAccord] = useState('');
 
   return <div className="accordion" id="accordionDefault">
@@ -231,64 +224,82 @@ const LandingPageSettings = () =>{
       </h3>
       <div className={`accordion-collapse collapse ${activeAccord === 'main' ? 'show' : ''}`} id="collapseOne" aria-labelledby="headingOne" data-bs-parent="#accordionDefault">
         <div className="accordion-body fs-sm">
-          <Form schema={{
-            "properties": {
-              "type": {
-                title: "Type of Call to action",
-                enum: [
-                  "WaitingList",
-                  "Subsciption",
-                  "Products overview",
-                  "Download App",
-                  "SignUpQuestionairre"],
-                enumNames: [
-                  "Waiting  List",
-                  "Subsciption",
-                  "Products overview",
-                  "Download App",
-                  "Sign up questionairre (configured in app editor)",
-                ],
+          <Form 
+            schema={{
+              "properties": {
+                "type": {
+                  title: "Type of Call to action",
+                  enum: [
+                    "WaitingList",
+                    "Subsciption",
+                    "Products overview",
+                    "Download App",
+                    "SignUpQuestionairre"],
+                  enumNames: [
+                    "Waiting  List",
+                    "Subsciption",
+                    "Products overview",
+                    "Download App",
+                    "Sign up questionairre (configured in app editor)",
+                  ],
+                },
+                "headerType": {
+                  enum: [
+                    "BackgroundImage",
+                    "CutOutImage",
+                    "PhoneScreenshot",],
+                  enumNames: [
+                    "Background Image",
+                    "Cut out image",
+                    "Phone Screenshot", 
+                  ],
+                  "title": "Header Types"
+                
+                },
+                "backgroundImage": {
+                  "type": "string",
+                  "title": "Background Image"
+                },
+                "cutOutImage": {
+                  "type": "string",
+                  "title": "Cut out Image"
+                },
+                "phoneMainImage": {
+                  "type": "string",
+                  "title": "Phone Screenshot",
+                  "description": "Make sure the background is transparent"
+                },
+                "headline": {
+                  "type": "string",
+                  "title": "Headline"
+                },
+                "description": {
+                  "type": "string",
+                  "title": "Description"
+                },
+                "keyPoints": {
+                  "type": "string",
+                  "title": "Key Points"
+                },
+              }
+            }} 
+            uiSchema={{
+              backgroundImage: {
+                'ui:widget': ImageUploadField//'image',
               },
-              "headerType": {
-                enum: [
-                  "BackgroundImage",
-                  "CutOutImage",
-                  "PhoneScreenshot",],
-                enumNames: [
-                  "Background Image",
-                  "Cut out image",
-                  "Phone Screenshot", 
-                ],
-                "title": "Header Types"
-              
+              cutOutImage: {
+                'ui:widget': ImageUploadField//'image',
               },
-              "backgroundImage": {
-                "type": "string",
-                "title": "Background Image"
+              phoneMainImage: {
+                'ui:widget': ImageUploadField//'image',
               },
-              "cutOutImage": {
-                "type": "string",
-                "title": "Cut out Image"
-              },
-              "phoneMainImage": {
-                "type": "string",
-                "title": "Phone Screenshot",
-                "description": "Make sure the background is transparent"
-              },
-              "headline": {
-                "type": "string",
-                "title": "Headline"
-              },
-              "description": {
-                "type": "string",
-                "title": "Description"
-              },
-              "keyPoints": {
-                "type": "string",
-                "title": "Key Points"
-              },
-            }
-          }} validator={validator} />
+            }}
+            validator={validator} 
+            onSubmit={async ({ formData }, e) => {
+              await saveSiteConfig(props.site, props.user.jwt, 'landing', formData);
+            }}
+            formData={props.site.config.landing}
+        />
         </div>
       </div>
     </div>

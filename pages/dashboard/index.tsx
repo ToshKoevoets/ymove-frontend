@@ -69,6 +69,7 @@ export default function Dashboard(props:any) {
   console.log('apiUrlapiUrlapiUrl', apiUrl, process.env);
   console.log('propspropspropsprops', props);
 
+  console.log('usersResponse', usersResponse.data);
 
 /*
   useEffect(() => {
@@ -81,9 +82,9 @@ export default function Dashboard(props:any) {
     }}>
       <h1>Users: {props.site.title}</h1>
       
-        {usersResponse.data && <CSVLink
+      {Array.isArray(usersResponse.data) && <CSVLink
           data={usersResponse.data}
-          headersBKP={usersResponse.data.map(c => ({ id: c.id!, key: c.key! }))}
+        headersBKP={Array.isArray(usersResponse.data) ? usersResponse.data.map(c => ({ id: c.id!, key: c.key! })) : []}
           filename='users.data.csv'
           enclosingCharacter={''}
           separator={';'}>
@@ -96,7 +97,7 @@ export default function Dashboard(props:any) {
         {usersResponse.error && <div>Failed to load users..</div>}
         {!usersResponse.data && <div>Loading users...</div>}
 
-        {usersResponse.data  && <Table
+        {Array.isArray(usersResponse.data)  && <Table
           columns={[
             { key: 'id', field: 'id', title: 'Column 1', dataType: DataType.String },
             { key: 'firstName', field: 'firstName', title: 'First Name', dataType: DataType.String },

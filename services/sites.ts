@@ -17,6 +17,8 @@ let sites: any = undefined;
 async function fetchAllSites() {
   const apiUrl = process.env.API;
 
+  console.log('apiUrl', apiUrl)
+
   if (!process.env.SITE_API_KEY) {
     console.error('Site api key is not set!');
     return [];
@@ -39,6 +41,8 @@ async function fetchAllSites() {
   const sitesResponse = await fetch(siteOptions.uri, siteOptions);
   const sitesData = await sitesResponse.json();
   const newSites: any = {};
+
+  console.log('sitesResponse', sitesResponse)
 
   sitesData.forEach((site: any) => {
     // for convenience and speed we set the domain name as the key

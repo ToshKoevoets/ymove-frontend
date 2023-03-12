@@ -5,12 +5,14 @@ import useScroll from "@/lib/hooks/use-scroll";
 import Meta from "./meta";
 import { cookies } from 'next/headers';
 import useSWR from 'swr';
+import { useRouter } from 'next/router';
+
 
 
 
 export default function Layout(props) {
   const scrolled = useScroll(50);
-
+  
   const {
     meta,
     site,
@@ -21,7 +23,8 @@ export default function Layout(props) {
   console.log('user propspropspropsprops', props)
 
   if (!user) {
-    return <div>Auth Reuquired</div>;
+    window.location.href = '/login';
+    return <div>Authentication Required, redirecting... </div>;
   }
 
   return (
@@ -33,7 +36,7 @@ export default function Layout(props) {
           <div className="container">
             <Link href="/" className="navbar-brand pe-sm-3">
               <span className="text-primary flex-shrink-0 me-2">
-                {site ? site.info.logo : site?.title ? site?.title : 'Dashboard'}
+                <img src="/ymove.png" width={50} height={50} />
               </span>
             </Link>
 
@@ -157,6 +160,9 @@ export default function Layout(props) {
                       </Link>   
                       <Link className="nav-link fw-semibold py-2 px-0" href="/dashboard/blog">
                         <i className="ai-quotes fs-5 opacity-60 me-2" />Blog
+                      </Link> 
+                      <Link className="nav-link fw-semibold py-2 px-0" href="/dashboard/blog">
+                        <i className="ai-quotes fs-5 opacity-60 me-2" />Email Sign up
                       </Link> 
                       <Link className="nav-link fw-semibold py-2 px-0" href="/dashboard/app-settings">
                         <i className="ai-user-check fs-5 opacity-60 me-2" />Subscriptions & Products
