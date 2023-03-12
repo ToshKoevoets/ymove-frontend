@@ -17,6 +17,11 @@ const nextConfig = {
         destination: "/api/login",
         permanent: true,
       },
+      {
+        permanent: true,
+        source: "/public/editor.html",
+        destination: "/pages/api/editor.js",
+      },
     ];
   },
 };

@@ -41,9 +41,6 @@ const dataArray = Array(30).fill(undefined).map(
 );
 
 const usersFetcher = async (args:any) => {
-  
-  console.log('argsgsgsg', args)
-
   const dataResponse = await fetch(args.url, {
     method: 'GET',
     headers: {
@@ -54,7 +51,6 @@ const usersFetcher = async (args:any) => {
   });
 
   const data = await dataResponse.json();
-  console.log('DAADDAADAA', data)
   return data;
 }
 
