@@ -1,9 +1,9 @@
-import { FADE_IN_ANIMATION_SETTINGS } from "@/lib/constants";
+import { FADE_IN_ANIMATION_SETTINGS } from "../../lib/constants";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
-import useScroll from "@/lib/hooks/use-scroll";
+import useScroll from "../../lib/hooks/use-scroll";
 import Meta from "./meta";
 import { useSignInModal } from "./sign-in-modal";
 import UserDropdown from "./user-dropdown";
@@ -21,15 +21,12 @@ export default function Layout({
   };
   children: ReactNode;
 }) {
-  const { SignInModal, setShowSignInModal } = useSignInModal();
   const scrolled = useScroll(50);
 
   return (
     <>
       <Meta {...meta} />
-      {/*<SignInModal />
-      <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100" />
-  */}
+
       <div
         className={`fixed top-0 w-full ${
           scrolled
@@ -41,10 +38,10 @@ export default function Layout({
           <Link href="/" className="flex items-center font-display text-2xl">
             <Image
               src="/logo.png"
-              alt="Precedent logo"
+              alt="Logo"
               width="30"
               height="30"
-              className="mr-2 rounded-sm"
+              className="mr-2 rounded-sm main-logo"
             ></Image>
             <p>Precedent</p>
           </Link>

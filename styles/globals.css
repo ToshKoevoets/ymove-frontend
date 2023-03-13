@@ -1,3 +1,45 @@
-.form-control[type="color"] {
+:root {
+  --ar-primary: #6a35e9;
+  --ar-secondary: #edf1f5;
+  --ar-primary-rgb: 106, 53, 233;
+
+}
+
+.btn-primary {
+  --ar-btn-bg: #6a35e9;
+--ar-btn-border-color: #6a35e9;
+  --ar-btn-hover-bg: #6a35e9;
+    --ar-btn-active-bg: #6a35e9;
+    --ar-btn-hover-border-color: #6a35e9;
+    --ar-btn-active-border-color: #6a35e9;
+}
+  
+  .form-control[type="color"] {
   padding: 0;
+}
+
+.btn-editor-header {
+      padding: 0px 27px !important;
+        font-size: 12px;
+        line-height: 8px;
+        height: 35px;
+        margin-right: 32px;
+}
+
+.ka-input {
+      background: #262626;
+        border: 0;
+        border-radius: 12px;
+        color: white;
+        padding: 6px 12px;
+        font-size: 13px;
+}
+
+.ka-row {
+  margin: 10px 0;
+    border-bottom: 1px solid #272727;
+  }
+
+.ka-cell {
+  padding: 19px 7px;
 }

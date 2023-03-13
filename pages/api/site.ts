@@ -14,11 +14,14 @@ async function handler(req:any, res:any) {
         notFound: true,
       }
     }
+    const activeAppId = site.config?.app && site.config?.app?.id ? site.config?.app?.id : false;
 
     res.status(200).json({ 
       id: site.id,
       title: site.title,
       cms: site.config?.cms,
+      streamApiKey: site.config?.chat?.streamApiKey,
+      activeAppId,
       config: moderator ? {
         styling: site.config?.styling ? site.config?.styling : {},
         landing: site.config?.landing ? site.config?.landing : {},

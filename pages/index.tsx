@@ -1,9 +1,9 @@
 import React from 'react';
-import Layout from "@/components/layout";
-import Ymove from "@/components/site/ymove";
-import WaitingList from "@/components/site/waiting";
-import Landing from "@/components/site/landing";
-import Openstad from "@/components/site/openstad";
+import Layout from "../components/layout";
+import Ymove from "../components/site/ymove";
+import WaitingList from "../components/site/waiting";
+import Landing from "../components/site/landing";
+import Openstad from "../components/site/openstad";
 
 
 export default function Home(props:any) {

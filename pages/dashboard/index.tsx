@@ -7,6 +7,7 @@ import { FilteringMode, SortDirection } from 'ka-table/enums';
 import { CSVLink } from 'react-csv';
 
 import useSWR from 'swr';
+import Link from "next/link";
 const apiUrl = process.env.API;
 
 
@@ -132,7 +133,8 @@ export default function Dashboard(props:any) {
       <section className="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
         <div className="card-body">
           <div className="d-flex align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3"><i className="ai-cart text-primary lead pe-1 me-2" />
-            <h2 className="h4 mb-0">Newest Users</h2><a className="btn btn-sm btn-secondary ms-auto" href="/dashboard/users">View all</a>
+            <h2 className="h4 mb-0">Newest Users</h2>
+            <Link className="btn btn-sm btn-secondary ms-auto" href="/dashboard/users">View all</Link>
           </div>
         </div>
       </section>

@@ -7,6 +7,35 @@ import { cookies } from 'next/headers';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 
+var stickyNavbar = function () {
+  var navbar = document.querySelector('.navbar.fixed-top');
+  if (navbar == null) return;
+  var navbarClass = navbar.classList,
+    scrollOffset = 20;
+  var navbarStuck = function navbarStuck(e) {
+    if (e.currentTarget.pageYOffset > scrollOffset) {
+      navbar.classList.add('navbar-stuck');
+      if (navbar.classList.contains('navbar-ignore-dark-mode')) {
+        navbar.classList.remove('ignore-dark-mode');
+      }
+    } else {
+      navbar.classList.remove('navbar-stuck');
+      if (navbar.classList.contains('navbar-ignore-dark-mode')) {
+        navbar.classList.add('ignore-dark-mode');
+      }
+    }
+  };
+
+  // On load
+  window.addEventListener('load', function (e) {
+    navbarStuck(e);
+  });
+
+  // On scroll
+  window.addEventListener('scroll', function (e) {
+    navbarStuck(e);
+  });
+};
 
 
 
@@ -20,7 +49,10 @@ export default function Layout(props) {
     children
   }  = props;
 
-  console.log('user propspropspropsprops', props)
+  React.useEffect(() => {
+    document.querySelector("html").classList.add("dark-mode");
+    stickyNavbar();
+  }, []);
 
   if (!user) {
     window.location.href = '/login';
@@ -30,101 +62,104 @@ export default function Layout(props) {
   return (
     <>
       <Meta {...meta} />
-      <main className="page-wrapper ">
+      <main className="page-wrapper  ">
+        <div className="">
         {/* Navbar. Remove 'fixed-top' class to make the navigation bar scrollable with the page*/}
         <header className="navbar navbar-expand-lg fixed-top">
           <div className="container">
-            <Link href="/" className="navbar-brand pe-sm-3">
+            <Link href="/" className="navbar-brand pe-sm-3 ">
               <span className="text-primary flex-shrink-0 me-2">
-                <img src="/ymove.png" width={50} height={50} />
+                <img src="/ymove.png" width={150} />
               </span>
             </Link>
 
-            {/* User signed in state. Account dropdown on screens > 576px*/}
-            <div className="dropdown nav d-none d-sm-block order-lg-3">
-              <a className="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                {user.profileImage ? 
-                  <img className="border rounded-circle" src="assets/img/avatar/01.jpg" width={48} alt={user.profileImage} />
-                  :
-                  <span className="border rounded-circle" style={{
-                    height: '48px',
-                    width: '48px',
-                    color:'var(--ar-primary)',
-                    textAlign: 'center',
-                    lineHeight: 1,
-                    lineHeight: '48px',
-                    fontWeight: 'bold'
-                  }}>
-                    {user.firstName ? user.firstName.charAt(0) : ''}
-                  </span>
-                }
-                <div className="ps-2">
-                  <div className="fs-xs lh-1 opacity-60">Hello,</div>
-                  <div className="fs-sm dropdown-toggle">{user.firstName}</div>
-                </div>
-              </a>
-              <div className="dropdown-menu dropdown-menu-end my-1">
-                <h6 className="dropdown-header fs-xs fw-medium text-muted text-uppercase pb-1">
-                  Site   
-                </h6>
-                  <a className="dropdown-item" href="account-overview.html">
-                    <i className="ai-user-check fs-lg opacity-70 me-2" />
-                    Overview
-                  </a>
+              <div className="d-inline-flex align-items-center">
+                <Link href="/dashboard/editor" className="btn btn-primary btn-editor-header">Edit App</Link>
 
-                  <a className="dropdown-item" href="account-overview.html">
-                    <i className="ai-user-check fs-lg opacity-70 me-2" />
-                    Events
-                  </a>
-
-                  <a className="dropdown-item" href="account-overview.html">
-                    <i className="ai-user-check fs-lg opacity-70 me-2" />
-                    Actions
-                  </a>
-
-
-                  <a className="dropdown-item" href="account-overview.html">
-                    <i className="ai-user-check fs-lg opacity-70 me-2" />
-                    Markting Guide
-                  </a>
-
-
-                    <a className="dropdown-item" href="account-settings.html">
-                      <i className="ai-settings fs-lg opacity-70 me-2" />
-                      Site Settings
+              {/* User signed in state. Account dropdown on screens > 576px*/}
+              <div className="dropdown nav d-none d-sm-block order-lg-3 ml-4">
+                <a className="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                  {user.profileImage ? 
+                    <img className="border rounded-circle" src="assets/img/avatar/01.jpg" width={48} alt={user.profileImage} />
+                    :
+                    <span className="border rounded-circle" style={{
+                      height: '48px',
+                      width: '48px',
+                      color:'var(--ar-primary)',
+                      textAlign: 'center',
+                      lineHeight: 1,
+                      lineHeight: '48px',
+                      fontWeight: 'bold'
+                    }}>
+                      {user.firstName ? user.firstName.charAt(0) : ''}
+                    </span>
+                  }
+                  <div className="ps-2">
+                    <div className="fs-xs lh-1 opacity-60">Hello,</div>
+                    <div className="fs-sm dropdown-toggle">{user.firstName}</div>
+                  </div>
+                </a>
+                <div className="dropdown-menu dropdown-menu-end my-1">
+                  <h6 className="dropdown-header fs-xs fw-medium text-muted text-uppercase pb-1">
+                    Site   
+                  </h6>
+                    <a className="dropdown-item" href="account-overview.html">
+                      <i className="ai-user-check fs-lg opacity-70 me-2" />
+                      Overview
                     </a>
-                    <a className="dropdown-item" href="account-billing.html">
-                      <i className="ai-wallet fs-base opacity-70 me-2 mt-n1" />
-                      App Settings
+
+                    <a className="dropdown-item" href="account-overview.html">
+                      <i className="ai-user-check fs-lg opacity-70 me-2" />
+                      Events
+                    </a>
+
+                    <a className="dropdown-item" href="account-overview.html">
+                      <i className="ai-user-check fs-lg opacity-70 me-2" />
+                      Actions
+                    </a>
+
+
+                    <a className="dropdown-item" href="account-overview.html">
+                      <i className="ai-user-check fs-lg opacity-70 me-2" />
+                      Markting Guide
+                    </a>
+
+
+                      <a className="dropdown-item" href="account-settings.html">
+                        <i className="ai-settings fs-lg opacity-70 me-2" />
+                        Site Settings
+                      </a>
+                      <a className="dropdown-item" href="account-billing.html">
+                        <i className="ai-wallet fs-base opacity-70 me-2 mt-n1" />
+                        App Settings
+                      </a>
+                    <div className="dropdown-divider" />
+                  <h6 className="dropdown-header fs-xs fw-medium text-muted text-uppercase pb-1">Knowledge & Support</h6>
+                  <a className="nav-link fw-semibold py-2 px-0" href="/dashboard/billing">
+                    <i className="ai-user-check fs-5 opacity-60 me-2" />
+                    Marketing Guides
+                  </a>   
+                  <a className="nav-link fw-semibold py-2 px-0" href="/dashboard/billing">
+                    <i className="ai-user-check fs-5 opacity-60 me-2" />
+                    App Editor Documentation
+                  </a>   
+                  <a className="nav-link fw-semibold py-2 px-0" href="/dashboard/billing">
+                    <i className="ai-user-check fs-5 opacity-60 me-2" />
+                    Support
+                  </a>   
+
+                  <div className="dropdown-divider" />
+                    <a className="dropdown-item" href="account-signin.html">
+                      <i className="ai-logout fs-lg opacity-70 me-2" />Sign out
                     </a>
                   <div className="dropdown-divider" />
-                <h6 className="dropdown-header fs-xs fw-medium text-muted text-uppercase pb-1">Knowledge & Support</h6>
-                <a className="nav-link fw-semibold py-2 px-0" href="/dashboard/billing">
-                  <i className="ai-user-check fs-5 opacity-60 me-2" />
-                  Marketing Guides
-                </a>   
-                <a className="nav-link fw-semibold py-2 px-0" href="/dashboard/billing">
-                  <i className="ai-user-check fs-5 opacity-60 me-2" />
-                  App Editor Documentation
-                </a>   
-                <a className="nav-link fw-semibold py-2 px-0" href="/dashboard/billing">
-                  <i className="ai-user-check fs-5 opacity-60 me-2" />
-                  Support
-                </a>   
+                  <h6 className="dropdown-header fs-xs fw-medium text-muted text-uppercase pb-1">Account</h6>
+                  <a className="dropdown-item" href="account-orders.html"><i className="ai-cart fs-lg opacity-70 me-2" />Orders</a><a className="dropdown-item" href="account-earnings.html"><i className="ai-activity fs-lg opacity-70 me-2" />Earnings</a><a className="dropdown-item d-flex align-items-center" href="account-chat.html"><i className="ai-messages fs-lg opacity-70 me-2" />Chat<span className="badge bg-danger ms-auto">4</span></a><a className="dropdown-item" href="account-favorites.html"><i className="ai-heart fs-lg opacity-70 me-2" />Favorites</a>
 
-                <div className="dropdown-divider" />
-                  <a className="dropdown-item" href="account-signin.html">
-                    <i className="ai-logout fs-lg opacity-70 me-2" />Sign out
-                  </a>
-                <div className="dropdown-divider" />
-                <h6 className="dropdown-header fs-xs fw-medium text-muted text-uppercase pb-1">Account</h6>
-                <a className="dropdown-item" href="account-orders.html"><i className="ai-cart fs-lg opacity-70 me-2" />Orders</a><a className="dropdown-item" href="account-earnings.html"><i className="ai-activity fs-lg opacity-70 me-2" />Earnings</a><a className="dropdown-item d-flex align-items-center" href="account-chat.html"><i className="ai-messages fs-lg opacity-70 me-2" />Chat<span className="badge bg-danger ms-auto">4</span></a><a className="dropdown-item" href="account-favorites.html"><i className="ai-heart fs-lg opacity-70 me-2" />Favorites</a>
-
-              
+                
+                </div>
               </div>
             </div>
-            <button className="navbar-toggler ms-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span className="navbar-toggler-icon" /></button>
-
           </div>
         </header>
         {/* Page content*/}
@@ -212,8 +247,8 @@ export default function Layout(props) {
             </div>
           </div>
         </div>
-       
-      </main>
+        </div>
+     </main>
     </>
   );
 }

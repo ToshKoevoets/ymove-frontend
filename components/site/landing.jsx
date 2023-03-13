@@ -30,7 +30,7 @@ export default class Landing extends React.Component {
             <div className="row align-items-center justify-content-center pt-3 pt-sm-4 mt-sm-3">
               <div className="col-sm-9 col-md-8 col-lg-7 offset-lg-1 order-md-2 pb-3 pb-sm-0 mt-md-n5 mb-4 mb-sm-5">
                 <div className="ps-md-4 ps-lg-0 mt-md-n4 mt-lg-n5">
-                  <h1 className="display-5 mb-lg-4">Hi, I'm <span className="text-dark fw-bolder">Jane Cooper</span><br />Wellness &amp; lifestyle influencer</h1>
+                  <h1 className="display-5 mb-lg-4" data-testid="main-heading">Hi, I'm <span className="text-dark fw-bolder">Jane Cooper</span><br />Wellness &amp; lifestyle influencer</h1>
                   <p className="fs-lg">Workouts designed for optimal results. Start your journey to wellness with me!</p>
                   <div style={{ maxWidth: '24rem' }}>
                     <div className="d-table text-dark mx-auto">

@@ -35,6 +35,7 @@ async function validateJwt(req, res) {
       email: userData.email,
       firstName: userData.firstName,
       lastName: userData.lastName,
+      chatToken: userData.chatToken,
       jwt: jwt
     };
     

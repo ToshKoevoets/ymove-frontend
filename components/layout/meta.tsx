@@ -1,6 +1,11 @@
 import Head from "next/head";
+import React from "react";
 
 const DOMAIN = "https://precedent.dev";
+
+interface Products {
+
+}
 
 export default function Meta({
   domain = "domain.com",
@@ -13,6 +18,8 @@ export default function Meta({
   description?: string;
   image?: string;
 }) {
+
+  const [products, setProducts] = React.useState<Products[]>([])
 
   return (
     <Head>

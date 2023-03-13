@@ -67,6 +67,15 @@ export default function Dashboard(props:any) {
   }, usersFetcher);
 
 
+  const users = Array.isArray(usersResponse.data) ? usersResponse.data.filter(u => !!u.email && u.firstName)
+    .map((u):any => {
+      return {
+        id: u.id,
+        firstName: u.firstName,
+        lastName: u.lastName,
+        email: u.email,
+      };
+    }) : [];
 
 /*
   useEffect(() => {
@@ -87,7 +96,7 @@ export default function Dashboard(props:any) {
           filename='users.data.csv'
           enclosingCharacter={''}
           separator={';'}>
-          Download .csv
+          Export
         </CSVLink>
         }
 
@@ -96,13 +105,12 @@ export default function Dashboard(props:any) {
 
         {Array.isArray(usersResponse.data)  && <Table
           columns={[
-            { key: 'id', field: 'id', title: 'Column 1', dataType: DataType.String },
             { key: 'firstName', field: 'firstName', title: 'First Name', dataType: DataType.String },
             { key: 'lastName', field: 'lastName', title: 'Last Name', dataType: DataType.String },
             { key: 'email', title: 'Email', dataType: DataType.String },
-            { key: ':delete', width: 70, style: { textAlign: 'center' } },
+            { key: ':edit', width: 70, style: { textAlign: 'center' } },
           ]}
-          data={usersResponse.data}
+          data={users}
           rowKeyField={'id'}
           filteringMode={FilteringMode.FilterRow}
           childComponents={{

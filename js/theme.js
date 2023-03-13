@@ -46,35 +46,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
    * Add solid background to fixed to top navigation bar
   */
 
-  var stickyNavbar = function () {
-    var navbar = document.querySelector('.navbar.fixed-top');
-    if (navbar == null) return;
-    var navbarClass = navbar.classList,
-      scrollOffset = 20;
-    var navbarStuck = function navbarStuck(e) {
-      if (e.currentTarget.pageYOffset > scrollOffset) {
-        navbar.classList.add('navbar-stuck');
-        if (navbar.classList.contains('navbar-ignore-dark-mode')) {
-          navbar.classList.remove('ignore-dark-mode');
-        }
-      } else {
-        navbar.classList.remove('navbar-stuck');
-        if (navbar.classList.contains('navbar-ignore-dark-mode')) {
-          navbar.classList.add('ignore-dark-mode');
-        }
-      }
-    };
 
-    // On load
-    window.addEventListener('load', function (e) {
-      navbarStuck(e);
-    });
-
-    // On scroll
-    window.addEventListener('scroll', function (e) {
-      navbarStuck(e);
-    });
-  }();
 
   /**
    * Animation on scroll (AOS)
